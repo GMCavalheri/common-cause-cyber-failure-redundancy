@@ -45,7 +45,7 @@ an attempt defeats every holder (Poisson thinning). The rate is **per value**: i
 depend on how many components hold $v$. Write $\lambda_c = \sum_{d} \lambda_d$ for the cyber
 exposure of a programmable component.
 
-**Definitions.** For a component $j$, with $\Lambda_j = \sum_{e \,:\, j \in S_e} \lambda_e$
+**Definitions.** For a component $j$, with $\Lambda_j = \sum_{e \ni j} \lambda_e$ (sum over the events with $j \in S_e$)
 its total rate,
 
 ```math
