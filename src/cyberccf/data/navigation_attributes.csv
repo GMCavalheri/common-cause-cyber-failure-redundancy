@@ -1,0 +1,3 @@
+component_group,firmware,network,supply_chain,basis
+nav_source,egi_fw,nav_net,egi_vendor,"assumption: the baseline fits identical units, so every EGI runs one image, sits on one segment and comes from one source"
+mission_computer,mc_sw,mc_net,mc_vendor,"assumption: the baseline fits identical computers with one software load, one segment and one source"

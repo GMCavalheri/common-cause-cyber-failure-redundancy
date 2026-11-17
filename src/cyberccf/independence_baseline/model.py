@@ -37,9 +37,10 @@ from itertools import combinations, product
 from cyberccf.independence_baseline.bdd import BDD
 from cyberccf.independence_baseline.structure import Block, at_least_k, components_in, leaves
 
-KINDS = ("independent", "physical_ccf", "cyber_ccf")
-"""The origin of a basic event: one component's own failure, a shared physical cause, or a
-shared cyber vulnerability."""
+KINDS = ("independent", "physical_ccf", "cyber_ccf", "cyber_independent")
+"""The origin of a basic event: one component's own physical failure, a shared physical cause,
+a cyber vulnerability shared by several components, or a cyber vulnerability held by one
+component only (what full diversity turns a shared one into)."""
 
 
 @dataclass(frozen=True)

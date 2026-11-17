@@ -1,0 +1,4 @@
+dimension,attempt_rate_per_hour,success_probability,basis
+firmware,2.0e-5,0.5,"illustrative assumption, no field data: an exploitable vulnerability in one firmware or software image is exercised against the platform once per 50 000 h, and half of the attempts defeat every channel running that image; explored from 0 to 10x in the sensitivity study"
+network,2.0e-5,0.25,"illustrative assumption, no field data: an attack reaches one network segment once per 50 000 h, and a quarter of those defeat every channel on the segment (lateral movement); explored from 0 to 10x in the sensitivity study"
+supply_chain,2.0e-6,1.0,"illustrative assumption, no field data: a compromised part or loading tool from one source reaches the platform once per 500 000 h and defeats every channel built from that source; explored from 0 to 10x in the sensitivity study"
