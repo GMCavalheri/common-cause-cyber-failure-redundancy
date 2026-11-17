@@ -1,0 +1,9 @@
+item,component_group,cost,basis
+extra_unit,nav_source,10,"illustrative assumption in relative cost units, no real cost data: one more identical EGI (unit, installation, wiring); the unit of the scale"
+extra_unit,mission_computer,15,"illustrative assumption in relative cost units, no real cost data: a second identical mission computer, dearer than an EGI because it also needs integration of its outputs"
+firmware_variant,nav_source,20,"illustrative assumption in relative cost units, no real cost data: one more dissimilar firmware image for the EGIs; dissimilar software is the dearest kind of diversity in the N-version programming literature (Avizienis 1985), so it is priced at twice a unit"
+firmware_variant,mission_computer,30,"illustrative assumption in relative cost units, no real cost data: one more dissimilar software load for the mission computers, dearer than EGI firmware because the application is larger"
+network_variant,nav_source,2,"illustrative assumption in relative cost units, no real cost data: one more network segment for the EGIs (switch port, configuration), the cheapest kind of diversity"
+network_variant,mission_computer,2,"illustrative assumption in relative cost units, no real cost data: one more network segment for the mission computers"
+supplier_variant,nav_source,8,"illustrative assumption in relative cost units, no real cost data: qualifying a second source for the EGIs or their loading tools"
+supplier_variant,mission_computer,8,"illustrative assumption in relative cost units, no real cost data: qualifying a second source for the mission computers or their loading tools"
