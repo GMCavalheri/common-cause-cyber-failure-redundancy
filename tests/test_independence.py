@@ -275,3 +275,12 @@ def test_parameters_load_from_a_given_path(tmp_path: Path) -> None:
 def test_affected_lists_the_components_an_event_fails() -> None:
     m = navigation_model()
     assert m.affected("power_bus_1") == ["power_bus_1"]
+
+
+def test_the_failure_bdd_is_built_once_per_model() -> None:
+    from cyberccf.independence_baseline.model import failure_bdd
+
+    m = navigation_model()
+    first = failure_bdd(m)
+    assert failure_bdd(m) is first
+    assert unreliability(m, 1.0) < unreliability(m, MISSION_HOURS)  # same BDD, other q

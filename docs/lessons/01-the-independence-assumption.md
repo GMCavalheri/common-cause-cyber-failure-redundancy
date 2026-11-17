@@ -132,13 +132,30 @@ EGI it feeds up.
 The code generalises this. A **component** fails when any of its **basic events** occurs, and
 basic events are mutually independent. In this lesson each component has exactly one basic
 event of its own, which is the independence model. A basic event that influences more than one
-leaf (here the power buses) is pivoted on, and the rest is evaluated bottom-up. With $s$ shared
-events the cost is $2^{s}$ bottom-up passes.
+leaf (here the power buses) has to be pivoted on.
+
+Pivoting naively, one shared event after another, costs $2^{s}$ bottom-up passes for $s$
+shared events. That is fine for two power buses, and hopeless for the common-cause groups of
+Lesson 2: an alpha-factor group of five members has 26 shared events. The engine therefore
+stores the pivotal decomposition as a **binary decision diagram** (BDD; Bryant, 1986), the
+standard exact method of fault-tree tools (Rauzy, 1993). Each node of a BDD is "if event $e$
+then this sub-function, else that one", identical sub-functions are stored once, and the
+probability of a node is
+
+```math
+P(\text{node}) = q_e\, P(\text{high}) + (1 - q_e)\, P(\text{low}),
+```
+
+a sum of non-negative terms that keeps full relative precision even at $10^{-20}$. The
+diagram is built once per model and re-evaluated for every mission length.
+[`tests/test_bdd.py`](../../tests/test_bdd.py) checks it against exhaustive truth tables, and
+[`tests/test_independence.py`](../../tests/test_independence.py) checks the whole engine
+against brute-force enumeration of every event state on random models with shared events.
 
 This formulation is chosen with the next lessons in mind. In the standard treatment of common
 cause (NUREG/CR-5485) a common-cause failure is itself a **basic event** that is a cause of
 several components. Physical and cyber common cause will therefore reuse this engine
-unchanged: they only add shared basic events, and the factoring handles them exactly.
+unchanged: they only add shared basic events, and the BDD handles them exactly.
 
 ## 4. What dominates: minimal cut sets
 
@@ -221,7 +238,7 @@ which matches the exact value to three digits (the rare-event approximation).
   `Parallel` and `KofN` build `KOutOfN` blocks; `at_least_k` is the Poisson-binomial tail.
 * [`model.py`](../../src/cyberccf/independence_baseline/model.py): `BasicEvent` (rate, kind,
   basis), `Model` (structure plus the events that cause each component), `failure_probability`
-  (exact factoring), `enumerate_failure_probability` (the brute-force oracle) and
+  (exact, through the BDD in [`bdd.py`](../../src/cyberccf/independence_baseline/bdd.py)), `enumerate_failure_probability` (the brute-force oracle) and
   `minimal_cut_sets`.
 * [`navigation.py`](../../src/cyberccf/independence_baseline/navigation.py): the parameter
   table and the system builder, with `egi_units`, `bus_channels` and `mission_computers`.
@@ -267,6 +284,10 @@ which matches the exact value to three digits (the rare-event approximation).
 
 * R. E. Barlow and F. Proschan, *Statistical Theory of Reliability and Life Testing*, Holt,
   Rinehart and Winston, 1975 (structure functions, pivotal decomposition, cut sets).
+* R. E. Bryant, "Graph-based algorithms for Boolean function manipulation," *IEEE
+  Transactions on Computers* C-35(8), 1986 (binary decision diagrams).
+* A. Rauzy, "New algorithms for fault trees analysis," *Reliability Engineering & System
+  Safety* 40(3), 1993 (BDDs for exact fault-tree quantification).
 * M. Rausand and A. Høyland, *System Reliability Theory: Models, Statistical Methods, and
   Applications*, 2nd ed., Wiley, 2004 (reliability block diagrams, k-out-of-n systems).
 * J. D. Esary, F. Proschan and D. W. Walkup, "Association of random variables, with

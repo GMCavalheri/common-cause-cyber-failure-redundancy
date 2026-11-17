@@ -12,14 +12,16 @@ event occurs with probability ``q = 1 - exp(-lambda t)``.
 
 **Exact quantification by factoring.** If every basic event influences at most one leaf
 occurrence of the block diagram, the children of each block are independent and the success
-probability is computed bottom-up. Otherwise each *shared* event ``e`` is conditioned on
-(Shannon decomposition, the pivotal decomposition of Barlow & Proschan, *Statistical Theory
-of Reliability and Life Testing*, 1975, ch. 2)::
+probability could be computed bottom-up. A *shared* event ``e`` breaks that, and is handled by
+conditioning on it (Shannon decomposition, the pivotal decomposition of Barlow & Proschan,
+*Statistical Theory of Reliability and Life Testing*, 1975, ch. 2)::
 
     P(fail) = q_e P(fail | e occurs) + (1 - q_e) P(fail | e does not occur)
 
-until no shared event is left. The cost is ``2**s`` bottom-up evaluations for ``s`` shared
-events, which stays small for the architectures studied here.
+Pivoting naively costs ``2**s`` for ``s`` shared events, which explodes for common-cause
+groups (an alpha-factor group of five members has 26 shared events). The system's failure
+function is therefore built once as a binary decision diagram (:mod:`.bdd`), which is the same
+decomposition with repeated work shared, and evaluated exactly for any ``q``.
 :func:`enumerate_failure_probability` is the brute-force oracle used by the tests: it
 enumerates all ``2**m`` states of the ``m`` basic events.
 """
@@ -32,6 +34,7 @@ from collections.abc import Mapping
 from dataclasses import dataclass, field
 from itertools import combinations, product
 
+from cyberccf.independence_baseline.bdd import BDD
 from cyberccf.independence_baseline.structure import Block, at_least_k, components_in, leaves
 
 KINDS = ("independent", "physical_ccf", "cyber_ccf")
@@ -131,22 +134,48 @@ def _success(block: Block, leaf_fail: Mapping[str, float]) -> float:
     return at_least_k(block.k, [_success(c, leaf_fail) for c in block.children])
 
 
-def _leaf_fail(model: Model, q: Mapping[str, float]) -> dict[str, float]:
-    out = {}
-    for comp in model.components:
-        survive = 1.0
-        for e in model.causes[comp]:
-            survive *= 1.0 - q[e]
-        out[comp] = 1.0 - survive
-    return out
-
-
 def shared_events(model: Model) -> list[str]:
-    """Events that influence more than one leaf occurrence (the ones factoring must pivot on)."""
+    """Events that influence more than one leaf occurrence (the ones that break independence)."""
     counts: Counter[str] = Counter()
     for leaf in leaves(model.structure):
         counts.update(model.causes[leaf])
     return [e.name for e in model.events if counts[e.name] > 1]
+
+
+def event_order(model: Model) -> list[str]:
+    """BDD variable order: events by first appearance in a left-to-right walk of the leaves.
+
+    Events that act on neighbouring components end up next to each other, which keeps the
+    diagram small for block diagrams built group by group.
+    """
+    order: dict[str, None] = {}
+    for leaf in leaves(model.structure):
+        for e in model.causes[leaf]:
+            order.setdefault(e)
+    return list(order)
+
+
+def failure_bdd(model: Model) -> tuple[BDD, int]:
+    """The BDD of "the system fails" over the model's basic events (built once, then cached)."""
+    cached = model.__dict__.get("_failure_bdd")
+    if cached is not None:
+        return cached  # type: ignore[no-any-return]
+    bdd = BDD(event_order(model))
+    leaf_fail = {}
+    for comp in model.components:
+        f = 0
+        for e in model.causes[comp]:
+            f = bdd.or_(f, bdd.var(e))
+        leaf_fail[comp] = f
+
+    def works(block: Block) -> int:
+        if isinstance(block, str):
+            return bdd.not_(leaf_fail[block])
+        return bdd.at_least(block.k, [works(c) for c in block.children])
+
+    out = (bdd, bdd.not_(works(model.structure)))
+    object.__setattr__(model, "_failure_bdd", out)
+    return out
 
 
 def failure_probability(model: Model, q: Mapping[str, float]) -> float:
@@ -154,15 +183,8 @@ def failure_probability(model: Model, q: Mapping[str, float]) -> float:
     for name, p in q.items():
         if not 0.0 <= p <= 1.0:
             raise ValueError(f"{name}: probability {p} outside [0, 1]")
-    pivots = [e for e in shared_events(model) if 0.0 < q[e] < 1.0]
-
-    def rec(i: int, cond: dict[str, float]) -> float:
-        if i == len(pivots):
-            return 1.0 - _success(model.structure, _leaf_fail(model, cond))
-        e, p = pivots[i], cond[pivots[i]]
-        return p * rec(i + 1, {**cond, e: 1.0}) + (1.0 - p) * rec(i + 1, {**cond, e: 0.0})
-
-    return rec(0, dict(q))
+    bdd, fails = failure_bdd(model)
+    return bdd.probability(fails, q)
 
 
 def unreliability(model: Model, hours: float) -> float:
