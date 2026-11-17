@@ -50,7 +50,7 @@ common-cause-cyber-failure-redundancy/
 - [x] **Phase 1 — Independence baseline**: implement classical series/parallel redundancy reliability assuming independence.
 - [x] **Phase 2 — Physical CCF model**: implement the beta-factor common-cause failure model for physical shared causes, validate against standard reliability engineering textbook examples.
 - [x] **Phase 3 — Cyber CCF model**: extend the beta-factor approach to a cyber-specific common-cause factor, grounded in shared-vulnerability reasoning (identical firmware, shared network segment).
-- [ ] **Phase 4 — Architecture diversity trade-off**: model and compare identical vs. diverse redundant architectures under the combined physical + cyber CCF model.
+- [x] **Phase 4 — Architecture diversity trade-off**: model and compare identical vs. diverse redundant architectures under the combined physical + cyber CCF model.
 - [ ] **Phase 5 — Case study**: apply the full framework to the shared synthetic system model from the Cyber Attack Impact Modeling project.
 - [ ] **Phase 6 — Documentation and publishing**: written explanation of the correction this project makes to standard redundancy analysis practice, with the before/after case study as the central result.
 
