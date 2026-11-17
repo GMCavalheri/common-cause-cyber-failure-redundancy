@@ -1,0 +1,5 @@
+group,component_group,beta,basis
+egi_ccf,nav_source,0.02,"assumption: inside the 0.005-0.05 range IEC 61508-6 Annex D gives for programmable electronic equipment, as quoted by S. Gandy, exida blog, 15 Aug 2023; explored over 0-0.1 in the sensitivity study"
+bus_ccf,data_bus,0.05,"assumption: inside the 0.01-0.1 range IEC 61508-6 Annex D gives for field equipment, as quoted by S. Gandy, exida blog, 15 Aug 2023; cable and transceivers share routing and environment"
+power_ccf,power,0.05,"assumption: inside the 0.01-0.1 range IEC 61508-6 Annex D gives for field equipment, as quoted by S. Gandy, exida blog, 15 Aug 2023; the buses share a generation system"
+mc_ccf,mission_computer,0.02,"assumption: inside the 0.005-0.05 range IEC 61508-6 Annex D gives for programmable electronic equipment, as quoted by S. Gandy, exida blog, 15 Aug 2023; applies only when two mission computers are fitted"
