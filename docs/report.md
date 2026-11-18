@@ -136,7 +136,7 @@ is the finding: the largest uncertainty is now a parameter with no data.
 ## 4. Verification
 
 Every result comes from code tested against closed forms, published equations or independent
-oracles (246 tests, 99.8 % branch coverage): NUREG/CR-5485 Eqs. 5.5-5.11 and Tables 5-4 and 5-5;
+oracles (282 tests, 99.8 % branch coverage): NUREG/CR-5485 Eqs. 5.5-5.11 and Tables 5-4 and 5-5;
 CPS-01 and CPS-02 v1.0.0; brute-force enumeration and exhaustive BDD truth tables; a Markov
 chain's $e^{Gt}$ against the BDD; Monte Carlo simulations within their 99.7 % intervals; and the
 eight propositions of the [derivation](derivation.md), each checked numerically
