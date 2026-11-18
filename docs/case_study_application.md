@@ -1,6 +1,7 @@
 # `case_study_application`: redundancy as claimed vs as it is
 
 **Lesson:** [5 · Redundancy as claimed vs as it is](lessons/05-redundancy-as-claimed-vs-as-it-is.md) ·
+**Report:** [`report.md`](report.md) ·
 **Code:** [`src/cyberccf/case_study_application/`](../src/cyberccf/case_study_application/)
 
 ## What it computes
