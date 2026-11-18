@@ -199,6 +199,11 @@ def system_works(model: Model, occurred: Mapping[str, bool]) -> bool:
     return _success(model.structure, leaf_fail) == 1.0
 
 
+def works_with_failed(model: Model, failed: set[str]) -> bool:
+    """The structure function on component states: does the system work with ``failed`` down?"""
+    return _success(model.structure, {c: float(c in failed) for c in model.components}) == 1.0
+
+
 def enumerate_failure_probability(model: Model, q: Mapping[str, float]) -> float:
     """Brute-force oracle: sum the probability of every event state in which the system fails."""
     names = [e.name for e in model.events]

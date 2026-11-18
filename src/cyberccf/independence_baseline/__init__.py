@@ -22,6 +22,7 @@ from cyberccf.independence_baseline.model import (
     shared_events,
     system_works,
     unreliability,
+    works_with_failed,
 )
 from cyberccf.independence_baseline.navigation import (
     FUNCTION,
@@ -82,4 +83,5 @@ __all__ = [
     "shared_events",
     "system_works",
     "unreliability",
+    "works_with_failed",
 ]
