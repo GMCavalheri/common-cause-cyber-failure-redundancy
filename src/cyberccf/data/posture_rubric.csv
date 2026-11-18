@@ -1,0 +1,3 @@
+parameter,low,high,basis
+control_effect,0.05,0.25,"illustrative assumption, no data: each selected control removes between 5 % and 25 % of the remaining exposure of the attribute it protects; controls are imperfect and attackers adapt, so no single control is credited with more"
+unprotected_scale,0.25,10,"illustrative assumption: with no overlay controls, the exposure is anywhere from 0.25 to 10 times the illustrative rates of cyber_exposures.csv, the range used throughout the project"

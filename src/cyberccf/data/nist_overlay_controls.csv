@@ -1,0 +1,30 @@
+control,title,dimension,low,moderate,high,source
+SC-7,Boundary Protection,network,1,1,1,NIST SP 800-82r3 (Sept 2023) Appendix F, Table 22
+SC-7(3),Boundary Protection | Access Points,network,0,1,1,NIST SP 800-82r3 (Sept 2023) Appendix F, Table 22
+SC-7(4),Boundary Protection | External Telecommunications Services,network,0,1,1,NIST SP 800-82r3 (Sept 2023) Appendix F, Table 22
+SC-7(5),Boundary Protection | Deny by Default — Allow by Exception,network,0,1,1,NIST SP 800-82r3 (Sept 2023) Appendix F, Table 22
+SC-7(21),Boundary Protection | Isolation of System Components,network,0,0,1,NIST SP 800-82r3 (Sept 2023) Appendix F, Table 22
+SC-7(29),Boundary Protection | Separate Subnets to Isolate Functions,network,1,1,1,"NIST SP 800-82r3 (Sept 2023) Appendix F, Table 22 (added by the OT overlay at every level)"
+CM-7,Least Functionality,firmware,1,1,1,NIST SP 800-82r3 (Sept 2023) Appendix F, Table 22
+CM-7(1),Least Functionality | Periodic Review,firmware,0,1,1,NIST SP 800-82r3 (Sept 2023) Appendix F, Table 22
+CM-7(2),Least Functionality | Prevent Program Execution,firmware,0,1,1,NIST SP 800-82r3 (Sept 2023) Appendix F, Table 22
+CM-7(5),Least Functionality | Authorized Software — Allow-by-exception,firmware,0,1,1,NIST SP 800-82r3 (Sept 2023) Appendix F, Table 22
+SI-2,Flaw Remediation,firmware,1,1,1,NIST SP 800-82r3 (Sept 2023) Appendix F, Table 22
+SI-2(2),Flaw Remediation | Automated Flaw Remediation Status,firmware,0,1,1,NIST SP 800-82r3 (Sept 2023) Appendix F, Table 22
+SI-7,"Software, Firmware, and Information Integrity",firmware,0,1,1,NIST SP 800-82r3 (Sept 2023) Appendix F, Table 22
+SI-7(1),"Software, Firmware, and Information Integrity | Integrity Checks",firmware,0,1,1,NIST SP 800-82r3 (Sept 2023) Appendix F, Table 22
+SI-7(7),"Software, Firmware, and Information Integrity | Integration of Detection and Response",firmware,0,1,1,NIST SP 800-82r3 (Sept 2023) Appendix F, Table 22
+SI-7(2),"Software, Firmware, and Information Integrity | Automated Notifications of Integrity Violations",firmware,0,0,1,NIST SP 800-82r3 (Sept 2023) Appendix F, Table 22
+SI-7(5),"Software, Firmware, and Information Integrity | Automated Response to Integrity Violations",firmware,0,0,1,NIST SP 800-82r3 (Sept 2023) Appendix F, Table 22
+SI-7(15),"Software, Firmware, and Information Integrity | Code Authentication",firmware,0,0,1,NIST SP 800-82r3 (Sept 2023) Appendix F, Table 22
+SR-3,Supply Chain Controls and Processes,supply_chain,1,1,1,NIST SP 800-82r3 (Sept 2023) Appendix F, Table 22
+SR-5,"Acquisition Strategies, Tools, and Methods",supply_chain,1,1,1,NIST SP 800-82r3 (Sept 2023) Appendix F, Table 22
+SR-5(1),"Acquisition Strategies, Tools, and Methods | Adequate Supply",supply_chain,0,1,1,NIST SP 800-82r3 (Sept 2023) Appendix F, Table 22
+SR-6,Supplier Assessments and Reviews,supply_chain,0,1,1,NIST SP 800-82r3 (Sept 2023) Appendix F, Table 22
+SR-9,Tamper Resistance and Detection,supply_chain,0,0,1,NIST SP 800-82r3 (Sept 2023) Appendix F, Table 22
+SR-9(1),Tamper Resistance and Detection | Multiple Stages of System Development Life Cycle,supply_chain,0,0,1,NIST SP 800-82r3 (Sept 2023) Appendix F, Table 22
+SR-10,Inspection of Systems or Components,supply_chain,1,1,1,NIST SP 800-82r3 (Sept 2023) Appendix F, Table 22
+SR-11,Component Authenticity,supply_chain,1,1,1,NIST SP 800-82r3 (Sept 2023) Appendix F, Table 22
+SR-11(1),Component Authenticity | Anti-counterfeit Training,supply_chain,1,1,1,NIST SP 800-82r3 (Sept 2023) Appendix F, Table 22
+SR-11(2),Component Authenticity | Configuration Control for Component Service and Repair,supply_chain,1,1,1,NIST SP 800-82r3 (Sept 2023) Appendix F, Table 22
+SC-29,Heterogeneity,none,0,0,0,"NIST SP 800-53B (Dec 2020) Table 3-18 (selected in no baseline) and absent from NIST SP 800-82r3; listed to show that no posture level asks for diversity"
